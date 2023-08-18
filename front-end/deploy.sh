@@ -8,6 +8,6 @@ cd dist
 git init
 git add -A
 git commit -m 'new deployment'
-git push -f git@github.com:THISmann/message-api2.git master:vue-pages
+git push -f git@github.com:THISmann/message-api2.git main:vue-pages
 
 cd -
