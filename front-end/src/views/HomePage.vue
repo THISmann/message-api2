@@ -1,0 +1,54 @@
+<!-- src/views/About.vue -->
+<template>
+  <div>
+
+    <NavbarComponent />
+
+    <div class="grid gap-x-8 gap-y-4 grid-cols-4">
+      <!-- {{food.name}} -->
+      <!-- card component with diffirent menu from the external api  -->
+      <CardComponent v-for="food in foods" :key="food.id" :imageUrl="food.photo" :title="food.name"
+        :content="food.landmark" :id_cafe="food.id" />
+    </div>
+  </div>
+</template>
+  
+<script>
+import axios from 'axios';
+//import qs from 'qs'
+import CardComponent from '../components/CardComponent.vue';
+import NavbarComponent from '../components/NavbarComponent.vue';
+export default {
+  name: 'HomePage', // Update the component name
+  components: {
+    CardComponent,
+    NavbarComponent
+  },
+  data() {
+    return {
+      foods: [],
+    }
+  },
+  mounted() {
+    this.fetchFood();
+  },
+  methods: {
+    // fetch the menu from the external api 
+    fetchFood() {
+      axios.get('https://bandaumnikov.ru/api/test/site/get-index', {
+        params: this.axiosParams
+      })
+        .then(response => {
+          this.foods = response.data.data;
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+  }
+
+};
+</script>
