@@ -4,7 +4,7 @@
 
     <NavbarComponent />
 
-    <div class="grid gap-x-8 gap-y-4 grid-cols-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
       <!-- {{food.name}} -->
       <!-- card component with diffirent menu from the external api  -->
       <CardComponent v-for="food in foods" :key="food.id" :imageUrl="food.photo" :title="food.name"

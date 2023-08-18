@@ -1,17 +1,17 @@
 <template>
     <NavbarComponent />
 
-    <div class="flex">
+    <div class="">
 
         <!-- comment form -->
-        <div class=" w-2/4 min-h-screen bg-gray-100  justify-center items-center">
-            <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="min-h-screen bg-gray-100  justify-center items-center">
+            <div class="w-2/4 bg-white rounded-lg shadow-md p-6">
                 <h2 class="text-xl font-semibold mb-4">{{ this.details.title }}</h2>
                 <img :src="this.details.photo" alt="Item Image" class="mb-4 rounded-lg">
                 <p class="text-gray-700">{{ this.details.address }}</p>
             </div>
 
-            <div class=" mt-8 bg-white p-6 rounded shadow-md">
+            <div class="w-2/4 mt-8 bg-white p-6 rounded shadow-md">
                 <form @submit.prevent="submitForm">
                     <div class="mb-4">
                         <label for="text" class="block text-sm font-medium text-gray-600"> comment </label>
@@ -23,12 +23,8 @@
                     </div>
                 </form>
             </div>
-        </div>
 
-        <!-- more Details of the menu -->
-        <div class=" w-2/4">
-            <div class="min-h-screen bg-gray-100 flex justify-center items-center">
-                <table class="min-w-full border-collapse border border-gray-300">
+            <table class="w-3/4 border-collapse border border-gray-300 m-5">
                     <h1> More Details</h1>
                     <thead>
                         <!-- <tr>
@@ -68,8 +64,11 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+
+
         </div>
+
+       
 
     </div>
 </template>

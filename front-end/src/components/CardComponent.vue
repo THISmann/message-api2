@@ -1,6 +1,6 @@
 <template>
   <!-- Card component with menu detail -->
-    <div class="bg-white rounded-lg shadow-md p-6 ">
+    <div class="bg-white rounded-lg shadow-md p-6 max-sm">
       <img :src="imageUrl" alt="Image" class="rounded-lg mb-4">
       <h2 class="text-xl font-semibold mb-2">{{ title }}</h2>
       <p class="text-gray-700">{{ content }}</p>
