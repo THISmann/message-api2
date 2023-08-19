@@ -4,14 +4,14 @@
     <div class="">
 
         <!-- comment form -->
-        <div class="min-h-screen bg-gray-100  justify-center items-center">
-            <div class="w-2/4 bg-white rounded-lg shadow-md p-6">
+        <div class="min-h-screen  bg-gray-100  justify-center items-center">
+            <div class="md:w-2/4 sm:w-4/4 m-8 bg-white rounded-lg shadow-md p-6  ">
                 <h2 class="text-xl font-semibold mb-4">{{ this.details.title }}</h2>
                 <img :src="this.details.photo" alt="Item Image" class="mb-4 rounded-lg">
                 <p class="text-gray-700">{{ this.details.address }}</p>
             </div>
 
-            <div class="w-2/4 mt-8 bg-white p-6 rounded shadow-md">
+            <div class="md:w-2/4 sm:w-4/4 m-8 bg-white p-6 rounded shadow-md  ">
                 <form @submit.prevent="submitForm">
                     <div class="mb-4">
                         <label for="text" class="block text-sm font-medium text-gray-600"> comment </label>
