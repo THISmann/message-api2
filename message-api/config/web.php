@@ -60,6 +60,7 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'message'],
                 'GET messages-by-cafe/<id_cafe:\d+>' => 'message/find-by-cafe',
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'note'],
+                'GET notes-by-cafe/<id_cafe:\d+>' => 'note/find-note-by-cafe',
             ],
         ],
         /*
