@@ -58,6 +58,7 @@ $config = [
             'enableStrictParsing' => true,
             'rules' => [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'message'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'note'],
             ],
         ],
         /*
