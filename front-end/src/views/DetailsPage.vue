@@ -59,8 +59,7 @@
                     <form @submit.prevent="submitNotation" class="max-w-md">
                         <div class="mb-6">
                             <label class="block font-semibold mb-2" for="rating">Rating</label>
-                            <select v-model="note" id="rating" name="rating"
-                                class="w-full px-4 py-2 border rounded-lg">
+                            <select v-model="note" id="rating" name="rating" class="w-full px-4 py-2 border rounded-lg">
                                 <option value="5">5 - Excellent</option>
                                 <option value="4">4 - Very Good</option>
                                 <option value="3">3 - Good</option>
@@ -91,6 +90,15 @@
         </div>
 
 
+        <div class="md:w-4/4 sm:w-4/4 m-8 bg-white p-6 rounded shadow-md flex items-center">
+            <div v-for="star in avrNote" :key="star" class="cursor-pointer">
+                <svg :class="{ 'text-yellow-500': avrNote >= star }" xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 fill-current" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10 1l2.39 6.47h6.73l-5.46 4.43 2.39 6.47-5.46-4.43-5.46 4.43 2.39-6.47-5.46-4.43h6.73z" />
+                </svg>
+            </div>
+        </div>
+
         <div class="md:w-4/4 sm:w-4/4 m-8 bg-white p-6 rounded shadow-md">
             <ul role="list" class="divide-y divide-gray-100">
                 <li v-for="message in messageById" :key="message.id" class="flex justify-between gap-x-6 py-5">
@@ -108,6 +116,8 @@
             </ul>
         </div>
 
+
+
     </div>
 </template>
   
@@ -115,17 +125,20 @@
 import axios from 'axios';
 import qs from 'qs';
 import NavbarComponent from '../components/NavbarComponent.vue';
+//import RatingComponent from '../components/RatingComponent.vue';
+//import { response } from 'express';
 //import { response } from 'express';
 export default {
     components: {
-        NavbarComponent
+        NavbarComponent 
     },
     data() {
         return {
             item: {},
             details: {},
             text: '',
-            note: 0,
+            note: 1, 
+            avrNote: 1,
             messageById: [],
             notation: {
                 rating: '5',
@@ -159,7 +172,8 @@ export default {
             })
             .finally(() => {
                 this.loading = false;
-                this.getMessageFromIdCafe(itemId)
+                this.getMessageFromIdCafe(itemId);
+                this.getNoteFromIdCafe(itemId);
             });
     },
     methods: {
@@ -176,7 +190,7 @@ export default {
         },
         postNote() {
             axios.post('http://localhost:8888/notes', qs.stringify({ 'note': this.note, 'id_cafe': this.$route.params.itemId })).then(response => {
-                console.log(response.data); 
+                console.log(response.data);
             }).catch(error => {
                 console.error('Error posting data:', error);
             });
@@ -189,6 +203,18 @@ export default {
                 console.log(this.messageById);
             }).catch(error => {
                 console.error('Error fetching data:', error);
+            })
+        },
+        getNoteFromIdCafe(id_cafe) {
+            axios.get(`http://localhost:8888/notes-by-cafe/${id_cafe}`, {}).then(response => {
+                console.log(response.data);
+                if (response.data.length >= 1) {
+                    this.avrNote = parseInt((response.data.reduce((accumulator, currentObject) => accumulator + currentObject.note, 0)) / response.data.length);
+                }
+                
+                console.log(this.avrNote);
+            }).catch(error => {
+                console.error('error fetch data:', error);
             })
         }
     }
