@@ -114,6 +114,16 @@
                     </div>
                 </li>
             </ul>
+
+            <a :href="telegramShareUrl" target="_blank" rel="noopener noreferrer"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24">
+                    <!-- Replace this path with the appropriate Telegram icon SVG path -->
+                    <path fill="currentColor"
+                        d="M18.755 0H5.244A5.256 5.256 0 000 5.244v12.51A5.256 5.256 0 005.244 23h12.51A5.256 5.256 0 0023 17.756V5.244A5.256 5.256 0 0017.756 0zm-3.783 15.672c-.482 0-.89.384-1.203.867l-2.978 3.625a.88.88 0 01-1.257.16.867.867 0 01-.159-1.227l2.85-3.468-6.267-4.284a.867.867 0 01-.25-1.203.878.878 0 011.205-.252l7.064 4.835 2.744-3.34c.31-.383.722-.601 1.204-.601a.878.878 0 01.619 1.5l-2.978 3.625a.88.88 0 01-1.256.161l-1.977-1.4-4.11 4.988a.88.88 0 01-1.204.161.867.867 0 01-.161-1.203l4.236-5.147.72-.878a1.72 1.72 0 012.473-.334l3.38 2.395a1.72 1.72 0 01.335 2.473l-1.2 1.458a.867.867 0 01-.643.286z" />
+                </svg>
+                Share on Telegram
+            </a>
         </div>
 
 
@@ -130,14 +140,14 @@ import NavbarComponent from '../components/NavbarComponent.vue';
 //import { response } from 'express';
 export default {
     components: {
-        NavbarComponent 
+        NavbarComponent
     },
     data() {
         return {
             item: {},
             details: {},
             text: '',
-            note: 1, 
+            note: 1,
             avrNote: 1,
             messageById: [],
             notation: {
@@ -147,6 +157,15 @@ export default {
             imageSrc: require('@/assets/logo.png')
         };
     },
+    computed: {
+    telegramShareUrl() {
+      // Replace 'YOUR_URL_HERE' with the content you want to share
+      const contentToShare = JSON.stringify({ 'name': this.details.name ,'address': this.details.address, 'price': this.details.price });
+
+      // Construct the Telegram share URL
+      return `https://t.me/share/url?url=${contentToShare}`;
+    },
+  },
     mounted() {
         // Access the itemId parameter from the route
         const itemId = this.$route.params.itemId;
@@ -210,8 +229,9 @@ export default {
                 console.log(response.data);
                 if (response.data.length >= 1) {
                     this.avrNote = parseInt((response.data.reduce((accumulator, currentObject) => accumulator + currentObject.note, 0)) / response.data.length);
+
                 }
-                
+
                 console.log(this.avrNote);
             }).catch(error => {
                 console.error('error fetch data:', error);

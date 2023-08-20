@@ -71,8 +71,12 @@ $config = [
             ],
         ],
         */
+    ], 
+    'controllerMap' => [
+        'telegram' => 'app\controllers\TelegramController',
     ],
-  
+
+
     'params' => $params,
 ];
 
