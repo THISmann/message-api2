@@ -3,8 +3,10 @@
 
 
 
-    <!-- comment form -->
+    <!-- Details Pages -->
     <div class="min-h-screen  bg-gray-100 grid ">
+
+        <!-- Card element  -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-2">
             <div class="md:w-4/4 sm:w-4/4 m-8 bg-white rounded-lg shadow-md p-3  ">
                 <h2 class="text-xl font-semibold mb-4">{{ this.details.title }}</h2>
@@ -12,6 +14,7 @@
                 <p class="text-gray-700">{{ this.details.address }}</p>
             </div>
 
+            <!-- Detail Of Restaurant  -->
             <div class="md:w-4/4 sm:w-4/4 m-8 bg-white p-6 rounded shadow-md  ">
                 <table class="w-3/4 border-collapse border border-gray-300 m-5">
                     <h1> More Details</h1>
@@ -50,6 +53,7 @@
                     </tbody>
                 </table>
 
+                <!-- Share on Telegram -->
                 <a :href="telegramShareUrl" target="_blank" rel="noopener noreferrer"
                     class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24">
@@ -61,12 +65,16 @@
                 </a>
             </div>
         </div>
+
+
+        <!-- Rating and Comment section  -->
         <div class="md:w-4/4 sm:w-4/4 m-8 bg-white p-6 rounded shadow-md">
 
             <h1 class="text-2xl font-semibold mb-4">Comment and Notation</h1>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-2">
+                <!-- Notation -->
                 <div class="md:w-2/4 sm:w-4/4">
-                    <form @submit.prevent="submitNotation" class="max-w-md">
+                    <form  class="max-w-md">
                         <div class="mb-6">
                             <label class="block font-semibold mb-2" for="rating">Rating</label>
                             <select v-model="note" id="rating" name="rating" class="w-full px-4 py-2 border rounded-lg">
@@ -81,6 +89,7 @@
                     </form>
                 </div>
 
+                <!-- Comment  -->
                 <div class="md:w-2/4 sm:w-4/4">
                     <form @submit.prevent="submitForm" class="max-w-md">
                         <div class="mb-4">
@@ -99,7 +108,7 @@
 
         </div>
 
-
+        <!-- Ration Section  -->
         <div class="md:w-4/4 sm:w-4/4 m-8 bg-white p-6 rounded shadow-md flex items-center">
             <div v-for="star in avrNote" :key="star" class="cursor-pointer">
                 <svg :class="{ 'text-yellow-500': avrNote >= star }" xmlns="http://www.w3.org/2000/svg"
@@ -109,6 +118,7 @@
             </div>
         </div>
 
+        <!-- message for Restaurant ID  -->
         <div class="md:w-4/4 sm:w-4/4 m-8 bg-white p-6 rounded shadow-md">
             <ul role="list" class="divide-y divide-gray-100">
                 <li v-for="message in messageById" :key="message.id" class="flex justify-between gap-x-6 py-5">
@@ -124,12 +134,7 @@
                     </div>
                 </li>
             </ul>
-
-
         </div>
-
-
-
     </div>
 </template>
   
@@ -145,23 +150,24 @@ export default {
         NavbarComponent
     },
     data() {
-        return {
-            item: {},
+        return { 
+            // restaurant info
             details: {},
+            // text comment
             text: '',
+            // Restaurant rating note
             note: 1,
+            // average note
             avrNote: 1,
+            // message for a specifique restaurant
             messageById: [],
-            notation: {
-                rating: '5',
-                comment: '',
-            },
+            // image src
             imageSrc: require('@/assets/logo.png')
         };
     },
     computed: {
-        telegramShareUrl() {
-            // Replace 'YOUR_URL_HERE' with the content you want to share
+        // Share on telegram
+        telegramShareUrl() { 
             const contentToShare = JSON.stringify({ 'name': this.details.name, 'address': this.details.address, 'price': this.details.price });
 
             // Construct the Telegram share URL
@@ -173,14 +179,6 @@ export default {
         const itemId = this.$route.params.itemId;
 
         // Fetch or set the item data based on the itemId
-        // For demonstration purposes, using static data
-        this.item = {
-            title: `Item ${itemId}`,
-            imageUrl: `https://via.placeholder.com/300?text=Item+${itemId}`,
-            description: `Description for Item ${itemId}`,
-        };
-
-
         axios.get(`https://bandaumnikov.ru/api/test/site/get-view?id=${itemId}`, {
             // params: this.axiosParams
         })
@@ -209,6 +207,7 @@ export default {
             });
 
         },
+        // post note to the api
         postNote() {
             axios.post('http://localhost:8888/notes', qs.stringify({ 'note': this.note, 'id_cafe': this.$route.params.itemId })).then(response => {
                 console.log(response.data);
@@ -216,6 +215,7 @@ export default {
                 console.error('Error posting data:', error);
             });
         },
+        // request from the database
         getMessageFromIdCafe(id_cafe) {
             axios.get(`http://localhost:8888/messages-by-cafe/${id_cafe}`, {
                 // params 
@@ -226,14 +226,13 @@ export default {
                 console.error('Error fetching data:', error);
             })
         },
+        // request from the database
         getNoteFromIdCafe(id_cafe) {
             axios.get(`http://localhost:8888/notes-by-cafe/${id_cafe}`, {}).then(response => {
                 console.log(response.data);
                 if (response.data.length >= 1) {
                     this.avrNote = parseInt((response.data.reduce((accumulator, currentObject) => accumulator + currentObject.note, 0)) / response.data.length);
-
                 }
-
                 console.log(this.avrNote);
             }).catch(error => {
                 console.error('error fetch data:', error);
