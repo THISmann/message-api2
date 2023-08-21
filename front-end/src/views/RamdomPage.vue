@@ -78,27 +78,7 @@ export default {
 
         };
     },
-    methods: {
-        getRandomRestaurant() {
-
-
-            //      // Fetch or set the item data based on the itemId
-            // axios.get(`https://bandaumnikov.ru/api/test/site/get-view?id=${itemId}`, {
-            //     // params: this.axiosParams
-            // })
-            //     .then(response => {
-            //         this.details = response.data.data;
-            //         console.log(this.details.id)
-            //     })
-            //     .catch(error => {
-            //         console.error('Error fetching data:', error);
-            //     })
-            //     .finally(() => {
-            //         this.loading = false;
-            //         this.getMessageFromIdCafe(itemId);
-            //         this.getNoteFromIdCafe(itemId);
-            //     });
-        },
+    methods: { 
         ...mapActions(['fetchData']),
     },
 }
