@@ -41,6 +41,10 @@ export default {
         params: this.axiosParams
       })
         .then(response => {
+         
+          const random = Math.floor(Math.random() * response.data.data.length);
+          console.log('response ramdom!!!',response.data.data[random]);
+
           this.foods = response.data.data;
         })
         .catch(error => {
