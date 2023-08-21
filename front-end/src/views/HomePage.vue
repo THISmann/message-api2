@@ -7,7 +7,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
       <!-- {{food.name}} -->
       <!-- card component with diffirent menu from the external api  -->
-      <CardComponent v-for="food in foods" :key="food.id" :imageUrl="food.photo" :title="food.name"
+      <CardComponent v-for="food in foods" :key="food.id" :imageUrl="food.photo || imageSrc" :title="food.name"
         :content="food.landmark" :id_cafe="food.id" />
     </div>
   </div>
@@ -27,6 +27,8 @@ export default {
   data() {
     return {
       foods: [],
+       // image src
+       imageSrc: require('@/assets/logo.png')
     }
   },
   mounted() {

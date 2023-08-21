@@ -10,7 +10,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-2">
             <div class="md:w-4/4 sm:w-4/4 m-8 bg-white rounded-lg shadow-md p-3  ">
                 <h2 class="text-xl font-semibold mb-4">{{ this.details.title }}</h2>
-                <img :src="this.details.photo" alt="Item Image" class="mb-4 rounded-lg">
+                <img :src="this.details.photo || imageSrc" alt="Item Image" class="mb-4 rounded-lg">
                 <p class="text-gray-700">{{ this.details.address }}</p>
             </div>
 
