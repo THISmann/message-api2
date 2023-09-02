@@ -1,20 +1,13 @@
-<div class="content" role="main">
+<div class="content mt-5" role="main">
   <h1 class="text-3xl font-bold underline">Hello world! Angular</h1>
 </div>
 
-<!-- Card component with menu detail -->
-<div class="bg-white rounded-lg shadow-md p-6 max-sm">
-  <img src="assets/Angular.png" alt="Image" class="rounded-lg mb-4"/>
-  <h2 class="text-xl font-semibold mb-2"> title </h2>
-  <p class="text-gray-700"> content </p>
-  <p>
-   
-  </p>
-  <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"> Get more info
-  </button>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+  <app-card *ngFor="let card of cards" [card]="card"></app-card>
 </div>
+
 
 <button (click)="getRestaurant()">Get Restaurants</button>
 <p></p>
-
+<app-navbar></app-navbar>
 <router-outlet></router-outlet>
