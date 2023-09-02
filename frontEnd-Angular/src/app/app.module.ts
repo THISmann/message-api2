@@ -3,19 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import axios from 'axios';
-import { CardRestaurantComponent } from './card-restaurant/card-restaurant.component';
-import { DetailRestaurantComponent } from './detail-restaurant/detail-restaurant.component';
-import { RandomRestaurantComponent } from './random-restaurant/random-restaurant.component';
-import { NavbarRestaurantComponent } from './navbar-restaurant/navbar-restaurant.component';
+import axios from 'axios'; 
+import { NavbarComponent } from './navbar/navbar.component'; 
+import { CardComponent } from './card/card.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CardRestaurantComponent,
-    DetailRestaurantComponent,
-    RandomRestaurantComponent,
-    NavbarRestaurantComponent
+    AppComponent, 
+    NavbarComponent, 
+    CardComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
