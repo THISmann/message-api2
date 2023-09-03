@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +10,8 @@ import { CardComponent } from './card/card.component';
 import { HomeComponent } from './home/home.component';
 import { CardListsComponent } from './card-lists/card-lists.component';
 import { DetailsComponent } from './details/details.component';
+import { MessagesComponent } from './messages/messages.component';
+import { StartComponent } from './start/start.component';
 
 @NgModule({
   declarations: [
@@ -17,11 +20,14 @@ import { DetailsComponent } from './details/details.component';
     CardComponent,
     HomeComponent,
     CardListsComponent,
-    DetailsComponent
+    DetailsComponent,
+    MessagesComponent,
+    StartComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule, // Add FormsModule here
   ],
   providers: [],
   bootstrap: [AppComponent]
