@@ -12,6 +12,7 @@ import { CardListsComponent } from './card-lists/card-lists.component';
 import { DetailsComponent } from './details/details.component';
 import { MessagesComponent } from './messages/messages.component';
 import { StartComponent } from './start/start.component';
+import { RamdomComponent } from './ramdom/ramdom.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { StartComponent } from './start/start.component';
     CardListsComponent,
     DetailsComponent,
     MessagesComponent,
-    StartComponent
+    StartComponent,
+    RamdomComponent
   ],
   imports: [
     BrowserModule,
