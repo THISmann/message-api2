@@ -7,19 +7,22 @@ import axios from 'axios';
   styleUrls: ['./ramdom.component.css']
 })
 export class RamdomComponent {
-  constructor(){
-
-  }
+  constructor(){}
+  // Object of Random Restaurant
   RandomRestaurant:any = {};
+  // Api Url
   private apiUrl = 'https://bandaumnikov.ru/api/test/site/get-index';
+  // Api Header
   private headers = {};
 
   ngOnInit(): void {
     //this.getRamdomRestaurant();
   }
 
-  getRamdomRestaurant(){
-    // const restaurant = math.ramdom()
+  /**
+   * get a random Restaurant with the list of restaurant
+   */
+  getRandomRestaurant(){ 
     axios
       .get(this.apiUrl, { headers: this.headers })
       .then((response) => {

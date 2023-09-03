@@ -17,6 +17,7 @@ export class HomeComponent {
   ngOnInit(): void {
     this.getRestaurant();
   }
+  // Get All restaurant Available on the Api
   getRestaurant() {
     axios
       .get(this.apiUrl, { headers: this.headers })

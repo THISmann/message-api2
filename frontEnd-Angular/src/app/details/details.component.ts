@@ -14,7 +14,7 @@ export class DetailsComponent {
   details: any = {};
   text: string = '';
   id_cafe: number = 0;
-  note: string = ''; 
+  note: string = '';
   messageById: any = [];
   //restaurantId: string;
   private apiUrl = 'https://bandaumnikov.ru/api/test/site/get-view?id=';
@@ -44,6 +44,7 @@ export class DetailsComponent {
     });
   }
 
+  // Get Restaurant information 
   getDetailById(id: number): void {
     axios
       .get(`https://bandaumnikov.ru/api/test/site/get-view?id=${id}`, {
@@ -59,6 +60,7 @@ export class DetailsComponent {
       });
   }
 
+  // Post a Note to the Api
   postNote(): void {
     axios
       .post(
@@ -78,6 +80,7 @@ export class DetailsComponent {
     console.log(this.note, this.id_cafe);
   }
 
+  // Post Message to the Api
   postMessage(): void {
     axios
       .post('http://localhost:8888/messages', {
@@ -95,26 +98,10 @@ export class DetailsComponent {
     console.log(typeof this.id_cafe);
   }
 
-  // getNoteFromIdCafe(id_cafe: number) {
-  //   axios
-  //     .get(`http://localhost:8888/notes-by-cafe/${id_cafe}`, {})
-  //     .then((response) => {
-  //     ;
-  //       if (response.data.length >= 1) {
-  //         this.avrNote = Math.floor(
-  //           response.data.reduce(
-  //             (accumulator: number, currentObject: any) => accumulator + currentObject.note,
-  //             0
-  //           ) / response.data.length
-  //         );
-  //       }
-        
-  //       console.log('AvrNote', this.avrNote);
-
-  //       console.log(this.avrNote);
-  //     })
-  //     .catch((error) => {
-  //       console.error('error fetch data:', error);
-  //     });
-  // }
+  // Share data on Telegram
+  generateTelegramShareLink(): string {
+    const text = 'Hello, check out this link!';
+    const url = `https://telegram.me/share/url?url=${encodeURIComponent(text)}`;
+    return url;
+  }
 }

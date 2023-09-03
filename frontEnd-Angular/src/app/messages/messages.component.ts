@@ -35,6 +35,7 @@ export class MessagesComponent {
     });
   }
 
+  // Get All messages from a specifique id
   getMessageFromIdCafe(id_cafe: number) {
     axios
       .get(`http://localhost:8888/messages-by-cafe/${id_cafe}`, {
