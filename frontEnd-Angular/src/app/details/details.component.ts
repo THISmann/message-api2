@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import axios from 'axios';
-import { response } from 'express';
+import { response } from 'express';  
+import { MessagesComponent } from '../messages/messages.component';
+import { StartComponent } from '../start/start.component';
 
 @Component({
   selector: 'app-details',
@@ -9,13 +11,18 @@ import { response } from 'express';
   styleUrls: ['./details.component.css'],
 })
 export class DetailsComponent {
+  @ViewChild(MessagesComponent) messagesComponent: MessagesComponent;
+  @ViewChild(StartComponent) startComponent : StartComponent;
   constructor(private route: ActivatedRoute) {}
 
   details: any = {};
-  text: string = '';
+  message_text: string = '';
+  message: any = {};
+  //@Output() messageEvent = new EventEmitter<string>();
+
   id_cafe: number = 0;
   note: string = '';
-  messageById: any = [];
+  //messageById: any = [];
   //restaurantId: string;
   private apiUrl = 'https://bandaumnikov.ru/api/test/site/get-view?id=';
   // `https://bandaumnikov.ru/api/test/site/get-view?id=${itemId}`
@@ -44,7 +51,7 @@ export class DetailsComponent {
     });
   }
 
-  // Get Restaurant information 
+  // Get Restaurant information
   getDetailById(id: number): void {
     axios
       .get(`https://bandaumnikov.ru/api/test/site/get-view?id=${id}`, {
@@ -65,12 +72,19 @@ export class DetailsComponent {
     axios
       .post(
         'http://localhost:8888/notes',
-        JSON.stringify({
+        {
           note: this.note,
           id_cafe: this.id_cafe,
-        })
+        },
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        }
       )
       .then((response) => {
+        //
+        this.startComponent.getNoteFromIdCafe(this.id_cafe);
         console.log(response.data);
         console.log(this.note);
       })
@@ -83,14 +97,28 @@ export class DetailsComponent {
   // Post Message to the Api
   postMessage(): void {
     axios
-      .post('http://localhost:8888/messages', {
-        text: this.text,
-        id_cafe: this.id_cafe,
-      })
+      .post(
+        'http://localhost:8888/messages',
+        {
+          text: this.message_text,
+          id_cafe: this.id_cafe,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        }
+      )
       .then((response) => {
-        console.log(response.data);
-        this.messageById = [...this.messageById, response.data];
-        this.text = '';
+        this.message = response.data
+        console.log('response',response.data);
+        
+        // getMessage from other components
+        this.messagesComponent.getMessageFromIdCafe(this.id_cafe);
+        // emit event
+        // this.messageEvent.emit(this.message);
+        //this.messageById = [...this.messageById, response.data];
+        this.message_text = '';
       })
       .catch((error) => {
         console.error('Error posting data:', error);
@@ -100,7 +128,7 @@ export class DetailsComponent {
 
   // Share data on Telegram
   generateTelegramShareLink(): string {
-    const text = 'Hello, check out this link!';
+    const text = `"address:"${this.details.address}`;
     const url = `https://telegram.me/share/url?url=${encodeURIComponent(text)}`;
     return url;
   }

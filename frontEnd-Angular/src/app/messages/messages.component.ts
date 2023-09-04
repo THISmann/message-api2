@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Input , Output , EventEmitter } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import axios from 'axios';
-import { response } from 'express';
+import { response } from 'express'; 
 
 @Component({
   selector: 'app-messages',
@@ -9,11 +9,14 @@ import { response } from 'express';
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent {
-  constructor(private route: ActivatedRoute) {}
-
+  @Input() message: any = {};
   id_cafe: number = 0;
   messageById: any = [];
-  items: string[] = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
+
+  //@Output() messageEvent = new EventEmitter<object>();
+
+
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -33,6 +36,7 @@ export class MessagesComponent {
         console.error('ID is null');
       }
     });
+    
   }
 
   // Get All messages from a specifique id
@@ -44,6 +48,7 @@ export class MessagesComponent {
       .then((response) => {
         this.messageById = response.data;
         console.log(this.messageById);
+        this.messageById = [...this.messageById, this.message]
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
