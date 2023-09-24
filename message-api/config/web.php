@@ -25,6 +25,9 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'S7Raa_QOpFO-IkYZS7HxtpjO1mqNraeC',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -61,7 +64,7 @@ $config = [
                 'GET messages-by-cafe/<id_cafe:\d+>' => 'message/find-by-cafe',
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'note'],
                 'GET notes-by-cafe/<id_cafe:\d+>' => 'note/find-note-by-cafe',
-            ],
+            ], 
         ],
         /*
         'urlManager' => [
@@ -72,6 +75,13 @@ $config = [
         ],
         */
     ], 
+    'modules' => [
+        'swagger' => [
+            'class' => 'darkair\swagger\SwaggerModule',
+            'jsonPath' => '@web/swagger.json', // Spécifiez le chemin où Swagger générera le fichier JSON de spécification
+        ],
+    ],
+    
     'controllerMap' => [
         'telegram' => 'app\controllers\TelegramController',
     ],

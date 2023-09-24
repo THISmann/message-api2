@@ -28,7 +28,7 @@ export default {
     return {
       foods: [],
        // image src
-       imageSrc: require('@/assets/logo.png')
+       imageSrc: require('../assets/logo.png')
     }
   },
   mounted() {
